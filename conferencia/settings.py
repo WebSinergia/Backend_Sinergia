@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-&$4m)m2*(6cpd(%idtlhul9l8x921+x(qx&-e0+*2t)#+@eo-o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','backend-sinergia.onrender.com']
 
 # Application definition
 
