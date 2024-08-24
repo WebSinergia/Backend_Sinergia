@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-&$4m)m2*(6cpd(%idtlhul9l8x921+x(qx&-e0+*2t)#+@eo-o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','backend-sinergia.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','backend-sinergia.onrender.com']
 
 # Application definition
 
@@ -86,6 +87,7 @@ DATABASES = {
     }
 }
 
+DATABASES["default"] = dj_database_url.parse("postgresql://admin:qZd7OnHIoqJ9GWpVN4mUzHTi78ukoHAf@dpg-cr558t88fa8c73abh110-a.oregon-postgres.render.com/db_sinergia_u1st")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
