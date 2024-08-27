@@ -45,6 +45,8 @@ class UserGetImageByZoneView(generics.ListAPIView):
             12: {"name": "Domenick Romero Pariona", "celular": "983650627", "modalidad": "YAPE"},
             13: {"name": "Sandy Bravo Cordova", "celular": "914549354", "modalidad": "YAPE"},
             14: {"name": "Daniel Velasquez Gavelan", "celular": "952119186", "modalidad": "YAPE"},
+            15: {"name": "Gabriel Aron Ortiz Alfaro", "celular": "902412431", "modalidad": "YAPE"},
+            16: {"name": "Frank Ramos Victorio", "celular": "946896936", "modalidad": "YAPE"},
         }
         
         # Construir el nombre del archivo de imagen
