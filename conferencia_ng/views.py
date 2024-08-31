@@ -17,8 +17,9 @@ from .serializers import *
 SECRET_KEY = b'xN_1zj_Eprrk6DAq6ibY8tkhLc3vb5HPMMyBPAxP0Oc='
 
 class UserListAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
     serializer_class = UserSerializer
+    def get_queryset(self):
+        return User.objects.all().order_by('us_nombres')
     
 class UserRetrieveDNIView(generics.RetrieveAPIView):
     queryset = User.objects.all()
