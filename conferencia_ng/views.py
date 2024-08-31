@@ -31,7 +31,7 @@ class UserRetrieveDNIView(generics.RetrieveAPIView):
 class UserUpdatePaymentView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'user_id'
+    lookup_field = 'us_id'
 
     def update(self, request, *args, **kwargs):
         user = self.get_object()
