@@ -5,7 +5,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.core.files import File
 from django.http import HttpResponse, Http404, JsonResponse
-from rest_framework import generics, exceptions
+from rest_framework import generics, exceptions, status
 from rest_framework.response import Response
 
 from cryptography.fernet import Fernet
@@ -27,6 +27,20 @@ class UserRetrieveDNIView(generics.RetrieveAPIView):
     def get_object(self):
         dni = self.request.query_params.get('dni')
         return User.objects.filter(us_dni=dni).first()
+    
+class UserUpdatePaymentView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def update(self, request, *args, **kwargs):
+        user = self.get_object()
+        
+        user.us_pago_confirmado = True
+        user.save()
+
+        serializer = self.get_serializer(user)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class UserGetImageByZoneView(generics.ListAPIView):
     def get(self, request, zone_id):
