@@ -115,8 +115,8 @@ def generate_qr_and_encrypt_id(user):
     encrypted_id = cipher.encrypt(str(user.us_id).encode())
 
     # Definir la URL del frontend para la redireccion a la pagina web de marcado de asistencia
-    base_url = "http://127.0.0.1:8000/conferencia/user/retrieve-qr"
-    data = f"{base_url}?id={encrypted_id.decode()}"
+    base_url = "https://nuevasgeneraciones.netlify.app/asistencia"
+    data = f"{base_url}?id={user.us_id}"
 
     # Generar el QR
     qr = qrcode.QRCode(
