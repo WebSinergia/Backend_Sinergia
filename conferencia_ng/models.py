@@ -10,6 +10,7 @@ class User(models.Model):
     us_dni = models.CharField(max_length=10)
     us_telefono = models.CharField(max_length=10)
     us_zone = models.CharField(max_length=100)
+    us_lugar = models.CharField(max_length=100)
     
     #-------BOOLEANO--------#
     us_pago_confirmado = models.BooleanField(default=False)
