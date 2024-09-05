@@ -27,6 +27,7 @@ def generate_qr_code(user_id):
     qr.add_data(qr_url)
     qr.make(fit=True)
     
+    
     # Crear la imagen del QR
     img = qr.make_image(fill='black', back_color='white')
     

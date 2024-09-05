@@ -28,6 +28,14 @@ class UserRetrieveDNIView(generics.RetrieveAPIView):
     def get_object(self):
         dni = self.request.query_params.get('dni')
         return User.objects.filter(us_dni=dni).first()
+
+class UserRetrieveIDView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def get_object(self):
+        dni = self.request.query_params.get('id')
+        return User.objects.filter(us_id=id).first()
     
 class UserUpdatePaymentView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
