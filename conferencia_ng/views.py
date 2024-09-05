@@ -34,7 +34,7 @@ class UserRetrieveIDView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     
     def get_object(self):
-        dni = self.request.query_params.get('id')
+        id = self.request.query_params.get('id')
         return User.objects.filter(us_id=id).first()
     
 class UserUpdatePaymentView(generics.RetrieveUpdateAPIView):
