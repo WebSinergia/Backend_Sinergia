@@ -9,6 +9,7 @@ urlpatterns = [
     path('user/retrieve-qr', UserRetrieveAPIView.as_view(), name='user-qr'),
     path('user/search', UserRetrieveDNIView.as_view(), name='user-dni'),
     path('user/search-id', UserRetrieveIDView.as_view(), name='user-id'),
+    path('user/asistence', UserAsistenceView.as_view(), name='asistence'),
     path('user/confirm/<int:us_id>', UserUpdatePaymentView.as_view(), name='user-confirm'),
     path('user/payment/<int:zone_id>', UserGetImageByZoneView.as_view(), name='zone-image'),
 ]

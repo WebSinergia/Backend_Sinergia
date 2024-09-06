@@ -14,6 +14,8 @@ class User(models.Model):
     
     #-------BOOLEANO--------#
     us_pago_confirmado = models.BooleanField(default=False)
+    us_day1 = models.BooleanField(default=False)
+    us_day2 = models.BooleanField(default=False)
     
     #-------IMAGENES--------#
     us_imagen_pago = models.ImageField(upload_to='payment_images/', null=True, blank=True)

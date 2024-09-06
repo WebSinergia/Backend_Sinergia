@@ -37,6 +37,18 @@ class UserRetrieveIDView(generics.RetrieveAPIView):
         id = self.request.query_params.get('id')
         return User.objects.filter(us_id=id).first()
     
+class UserAsistenceView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def get_object(self):
+        id = self.request.query_params.get('id')
+        user = User.objects.filter(us_id=id).first()
+        if user:
+            user.us_day1 = True
+            user.save()
+        return user
+    
 class UserUpdatePaymentView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
