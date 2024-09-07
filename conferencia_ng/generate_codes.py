@@ -42,9 +42,9 @@ def generate_qr_code(user_id):
     qr_access_url = f"qr_codes/{qr_filename}"
     return qr_access_url
 
-
 def regenerate_qr_codes():
-    for user in User.objects.all():
+    user_ids = [533, 534, 535]
+    for user in User.objects.filter(us_id__in=user_ids):
         # Generar el código QR y obtener la nueva URL
         new_qr_url = generate_qr_code(user.us_id)
         
