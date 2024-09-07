@@ -45,7 +45,7 @@ class UserAsistenceView(generics.RetrieveAPIView):
         id = self.request.query_params.get('id')
         user = User.objects.filter(us_id=id).first()
         if user:
-            user.us_day1 = True
+            user.us_day2 = True
             user.save()
         return user
     
