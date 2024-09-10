@@ -5,8 +5,10 @@ from django.conf import settings
 from django.shortcuts import render
 from django.core.files import File
 from django.http import HttpResponse, Http404, JsonResponse
+from django.db.models import Count, Q
 from rest_framework import generics, exceptions, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from cryptography.fernet import Fernet
 from io import BytesIO
@@ -156,3 +158,30 @@ def generate_qr_and_encrypt_id(user):
 
     # Asignar la imagen del QR al usuario y guardar
     user.us_qrcode.save(f"{user.us_nombres}_qr.png", qr_image)
+
+class AsistenciaPorZonaView(APIView):
+    def get(self, request, *args, **kwargs):
+        inscritos_por_zona = User.objects.values('us_zone').annotate(total_inscritos=Count('us_id'))
+
+        asistentes_dia1_por_zona = User.objects.filter(us_day1=True).values('us_zone').annotate(asistentes_dia1=Count('us_id'))
+        
+        asistentes_dia2_por_zona = User.objects.filter(us_day2=True).values('us_zone').annotate(asistentes_dia2=Count('us_id'))
+
+        result = []
+        zonas = {item['us_zone'] for item in inscritos_por_zona}
+        
+        for zona in zonas:
+            inscritos = next((item['total_inscritos'] for item in inscritos_por_zona if item['us_zone'] == zona), 0)
+            dia1 = next((item['asistentes_dia1'] for item in asistentes_dia1_por_zona if item['us_zone'] == zona), 0)
+            dia2 = next((item['asistentes_dia2'] for item in asistentes_dia2_por_zona if item['us_zone'] == zona), 0)
+            
+            result.append({
+                'us_zone': zona,
+                'total_inscritos': inscritos,
+                'asistentes_dia1': dia1,
+                'asistentes_dia2': dia2
+            })
+        
+        serializer = AsistenciaZonaSerializer(result, many=True)
+        return Response(serializer.data)
+
