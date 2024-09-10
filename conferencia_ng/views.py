@@ -167,8 +167,16 @@ class AsistenciaPorZonaView(APIView):
         
         asistentes_dia2_por_zona = User.objects.filter(us_day2=True).values('us_zone').annotate(asistentes_dia2=Count('us_id'))
 
-        result = []
         zonas = {item['us_zone'] for item in inscritos_por_zona}
+        
+        result = []
+        for zona in zonas:
+            if zona == '15':
+                zona_nombre = 'CDL'
+            elif zona == '16':
+                zona_nombre = 'Oquendo'
+            else:
+                zona_nombre = f'Zona #{zona}'
         
         for zona in zonas:
             inscritos = next((item['total_inscritos'] for item in inscritos_por_zona if item['us_zone'] == zona), 0)
@@ -176,7 +184,7 @@ class AsistenciaPorZonaView(APIView):
             dia2 = next((item['asistentes_dia2'] for item in asistentes_dia2_por_zona if item['us_zone'] == zona), 0)
             
             result.append({
-                'us_zone': zona,
+                'us_zone': zona_nombre,
                 'total_inscritos': inscritos,
                 'asistentes_dia1': dia1,
                 'asistentes_dia2': dia2
