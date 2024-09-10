@@ -170,18 +170,18 @@ class AsistenciaPorZonaView(APIView):
         zonas = {item['us_zone'] for item in inscritos_por_zona}
         
         result = []
-        for zona in zonas:
-            if zona == '15':
-                zona_nombre = 'CDL'
-            elif zona == '16':
-                zona_nombre = 'Oquendo'
-            else:
-                zona_nombre = f'Zona #{zona}'
         
         for zona in zonas:
             inscritos = next((item['total_inscritos'] for item in inscritos_por_zona if item['us_zone'] == zona), 0)
             dia1 = next((item['asistentes_dia1'] for item in asistentes_dia1_por_zona if item['us_zone'] == zona), 0)
             dia2 = next((item['asistentes_dia2'] for item in asistentes_dia2_por_zona if item['us_zone'] == zona), 0)
+            
+            if zona == '15':
+                zona_nombre = 'CDL'
+            elif zona == '16':
+                zona_nombre = 'Oquendo'
+            else:
+                zona_nombre = f'Zona {zona}'
             
             result.append({
                 'us_zone': zona_nombre,
