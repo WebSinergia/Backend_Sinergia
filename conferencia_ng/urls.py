@@ -14,6 +14,7 @@ urlpatterns = [
     path('user/payment/<int:zone_id>', UserGetImageByZoneView.as_view(), name='zone-image'),
     
     path('report/days', AsistenciaPorZonaView.as_view(), name='report-days'),
+    path('report/asistence-days', AsistenciaPorDiaLugarView.as_view(), name='asistence-days'),
 ]
 
 if settings.DEBUG:
