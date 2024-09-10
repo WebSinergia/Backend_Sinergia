@@ -193,19 +193,26 @@ class AsistenciaPorZonaView(APIView):
         serializer = AsistenciaZonaSerializer(result, many=True)
         return Response(serializer.data)
 
+class AsistenciaTotalView(APIView):
+    def get(self, request, *args, **kwargs):
+        total_inscritos = User.objects.count()
+        total_dia1 = User.objects.filter(us_day1=True).count()
+        total_dia2 = User.objects.filter(us_day2=True).count()
+
+        return Response({
+            'total_inscritos': total_inscritos,
+            'total_dia1': total_dia1,
+            'total_dia2': total_dia2
+        })
+
 class AsistenciaPorDiaLugarView(APIView):
     def get(self, request, *args, **kwargs):
-        # Calcular la asistencia por día y lugar
-
-        # Día 1
         asistentes_dia1_cc = User.objects.filter(us_day1=True, us_lugar='CC').count()
         asistentes_dia1_au = User.objects.filter(us_day1=True, us_lugar='AU').count()
 
-        # Día 2
         asistentes_dia2_cc = User.objects.filter(us_day2=True, us_lugar='CC').count()
         asistentes_dia2_au = User.objects.filter(us_day2=True, us_lugar='AU').count()
-
-        # Estructurar la respuesta
+        
         data = {
             'dia1': {
                 'CC': asistentes_dia1_cc,

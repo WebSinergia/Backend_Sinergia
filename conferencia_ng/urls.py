@@ -15,6 +15,7 @@ urlpatterns = [
     
     path('report/days', AsistenciaPorZonaView.as_view(), name='report-days'),
     path('report/asistence-days', AsistenciaPorDiaLugarView.as_view(), name='asistence-days'),
+    path('report/asistence-total', AsistenciaTotalView.as_view(), name='asistence-total'),
 ]
 
 if settings.DEBUG:
