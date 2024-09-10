@@ -164,14 +164,14 @@ class AsistenciaPorZonaView(APIView):
         inscritos_por_zona = User.objects.values('us_zone').annotate(total_inscritos=Count('us_id'))
 
         asistentes_dia1_por_zona = User.objects.filter(us_day1=True).values('us_zone').annotate(asistentes_dia1=Count('us_id'))
-        
         asistentes_dia2_por_zona = User.objects.filter(us_day2=True).values('us_zone').annotate(asistentes_dia2=Count('us_id'))
 
         zonas = {item['us_zone'] for item in inscritos_por_zona}
+        zonas_ordenadas = sorted(zonas, key=lambda x: int(x) if x.isdigit() else float('inf'))
         
         result = []
         
-        for zona in zonas:
+        for zona in zonas_ordenadas:
             inscritos = next((item['total_inscritos'] for item in inscritos_por_zona if item['us_zone'] == zona), 0)
             dia1 = next((item['asistentes_dia1'] for item in asistentes_dia1_por_zona if item['us_zone'] == zona), 0)
             dia2 = next((item['asistentes_dia2'] for item in asistentes_dia2_por_zona if item['us_zone'] == zona), 0)
