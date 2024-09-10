@@ -180,6 +180,8 @@ class AsistenciaPorZonaView(APIView):
                 zona_nombre = 'CDL'
             elif zona == '16':
                 zona_nombre = 'Oquendo'
+            elif zona == '17':
+                zona_nombre = 'Aucallama'
             else:
                 zona_nombre = f'Zona {zona}'
             
